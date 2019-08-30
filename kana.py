@@ -7,7 +7,7 @@ distractors = []
 
 def init():
     global distractors
-    with open("distractors.txt", "r") as file:
+    with open("distractors.utf8", "r") as file:
         for row in file:
             distractors.append(set(row.split()))
 
@@ -101,7 +101,7 @@ def reversequiz(v, d):
 
 
 def main():
-    init
+    init()
     hiragana = kanadict(0x3041, 0x3097)
     katakana = kanadict(0x30a1, 0x30fb)
     for f in reversequiz, quiz:
@@ -115,4 +115,5 @@ def main():
                 print("End of turn", turn)
 
 
-main()
+if __name__ == '__main__':
+    main()
