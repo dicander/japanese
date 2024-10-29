@@ -6,6 +6,7 @@ distractors = []
 
 
 def init():
+    """Set up the distractors, which contain similar symbols in Japanese."""
     global distractors
     with open("distractors.utf8", "r") as file:
         for row in file:
@@ -13,6 +14,7 @@ def init():
 
 
 def quiz(v, d):
+    """Runs a quiz with the questions in v, and use the dictionary d for grading."""
     random.shuffle(v)
     fails = []
     correct = 0
@@ -37,6 +39,7 @@ def quiz(v, d):
 
 
 def kanadict(start, end):
+    """Creates a dictionary using unicodedata."""
     d = dict()
     for x in range(start, end):
         kana = chr(x)
@@ -49,6 +52,7 @@ def kanadict(start, end):
 
 
 def reversequiz(v, d):
+    """Asks for a latinizatoin of the questions in v using the dictionary."""
     correct = 0
     incorrect = 0
     distractors = []
@@ -101,9 +105,14 @@ def reversequiz(v, d):
 
 
 def main():
+    """Runs init, creates the dictionaries and starts the quiz."""
     init()
-    hiragana = kanadict(0x3041, 0x3097)
-    katakana = kanadict(0x30a1, 0x30fb)
+    HIRAGANA_START = 0x3041
+    HIRAGANA_END = 0x3097
+    KATAKANA_START = 0x30a1
+    KATAKANA_END = 0x30fb
+    hiragana = kanadict(HIRAGANA_START, HIRAGANA_END)
+    katakana = kanadict(KATAKANA_START, KATAKANA_END)
     for f in reversequiz, quiz:
         for v, d in [hiragana, katakana]:
             turn = 0
